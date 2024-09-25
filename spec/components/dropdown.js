@@ -13,6 +13,8 @@ const countries = [
 class DropdownTest extends React.Component {
   state = {
     dropdown4: 'TH-th',
+    dropdown1: null, 
+    dropdown5: null,
   };
 
   handleChange = (dropdown, value) => {
@@ -33,46 +35,62 @@ class DropdownTest extends React.Component {
       </div>
     );
   }
+  handleSubmit = (event) => {
+    event.preventDefault(); 
+    const { dropdown1, dropdown4, dropdown5 } = this.state;
+    if (!dropdown1) {
+      alert('Please select a country for Dropdown 1.');
+    } else if (!dropdown4) {
+      alert('Please select a country for Dropdown 4.');
+    } else if (!dropdown5) {
+      alert('Please select a country for Dropdown 5.');
+    } else {
+      console.log('Form submitted successfully!');
+      
+    }
+  };
 
   render() {
     return (
       <section>
         <h5>Dropdown</h5>
         <p>lorem ipsum...</p>
-
-        <Dropdown
+        <form onSubmit={this.handleSubmit}> 
+           <Dropdown
           label="Country"
           ref="dropdown1"
           onChange={this.handleChange.bind(this, 'dropdown1')}
           source={countries}
           template={this.customDropdownItem}
           value={this.state.dropdown1}
-        />
+           />
 
-        <Dropdown
+          <Dropdown
           label="Country"
           ref="dropdown4"
           onChange={this.handleChange.bind(this, 'dropdown4')}
           source={countries}
           value={this.state.dropdown4}
-        />
+          />
 
-        <Dropdown
+          <Dropdown
           disabled
           ref="dropdown3"
           label="Country"
           onChange={this.handleChange.bind(this, 'dropdown3')}
           source={countries}
-        />
+         />
 
-        <Dropdown
+         <Dropdown
           label="Country"
           ref="dropdown5"
           onChange={this.handleChange.bind(this, 'dropdown5')}
           source={countries}
           value={this.state.dropdown5}
           required
-        />
+         />
+         <button type="submit"></button>
+        </form>
       </section>
     );
   }
